@@ -1,0 +1,27 @@
+{
+    "name": "slsabil/laravel-hotel-booking",
+    "description": "Laravel Hotel Booking Engine",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Slsabil\\LaravelHotelBooking\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Slsabil\\LaravelHotelBooking\\HotelBookingServiceProvider"
+            ]
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "3.x-dev"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}
