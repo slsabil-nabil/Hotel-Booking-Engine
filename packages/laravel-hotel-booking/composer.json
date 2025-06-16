@@ -5,7 +5,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Slsabil\\LaravelHotelBooking\\": "src/"
+            "Slsabil\\LaravelHotelBooking\\": "packages/laravel-hotel-booking/src/"
         }
     },
     "minimum-stability": "dev",
@@ -24,7 +24,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Tests\\": "tests/",
+            "Slsabil\\LaravelHotelBooking\\Database\\Factories\\": "packages/laravel-hotel-booking/database/factories/"
         }
     },
     "config": {
