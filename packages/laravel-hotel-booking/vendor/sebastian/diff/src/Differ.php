@@ -42,10 +42,6 @@ final class Differ
         $this->outputBuilder = $outputBuilder;
     }
 
-    /**
-     * @param list<string>|string $from
-     * @param list<string>|string $to
-     */
     public function diff(array|string $from, array|string $to, ?LongestCommonSubsequenceCalculator $lcs = null): string
     {
         $diff = $this->diffToArray($from, $to, $lcs);
@@ -53,10 +49,6 @@ final class Differ
         return $this->outputBuilder->getDiff($diff);
     }
 
-    /**
-     * @param list<string>|string $from
-     * @param list<string>|string $to
-     */
     public function diffToArray(array|string $from, array|string $to, ?LongestCommonSubsequenceCalculator $lcs = null): array
     {
         if (is_string($from)) {
@@ -84,11 +76,11 @@ final class Differ
         reset($to);
 
         foreach ($common as $token) {
-            while ((/* from-token */ reset($from)) !== $token) {
+            while (($fromToken = reset($from)) !== $token) {
                 $diff[] = [array_shift($from), self::REMOVED];
             }
 
-            while ((/* to-token */ reset($to)) !== $token) {
+            while (($toToken = reset($to)) !== $token) {
                 $diff[] = [array_shift($to), self::ADDED];
             }
 
@@ -137,7 +129,7 @@ final class Differ
         return new TimeEfficientLongestCommonSubsequenceCalculator;
     }
 
-    private function calculateEstimatedFootprint(array $from, array $to): int
+    private function calculateEstimatedFootprint(array $from, array $to): float|int
     {
         $itemSize = PHP_INT_SIZE === 4 ? 76 : 144;
 

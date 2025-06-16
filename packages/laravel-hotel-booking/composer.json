@@ -9,6 +9,7 @@
         }
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "extra": {
         "laravel": {
             "providers": [
@@ -17,7 +18,14 @@
         }
     },
     "require-dev": {
-        "pestphp/pest": "3.x-dev"
+        "pestphp/pest": "^2.30",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest-plugin-laravel": "^2.4"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
     },
     "config": {
         "allow-plugins": {

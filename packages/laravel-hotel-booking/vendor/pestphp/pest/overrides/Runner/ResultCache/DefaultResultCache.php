@@ -46,7 +46,6 @@ declare(strict_types=1);
 namespace PHPUnit\Runner\ResultCache;
 
 use const DIRECTORY_SEPARATOR;
-use const LOCK_EX;
 
 use PHPUnit\Framework\TestStatus\TestStatus;
 use PHPUnit\Runner\DirectoryCannotBeCreatedException;
@@ -60,14 +59,11 @@ use function file_get_contents;
 use function file_put_contents;
 use function is_array;
 use function is_dir;
-use function is_file;
 use function json_decode;
 use function json_encode;
 use function Pest\version;
 
 /**
- * @no-named-arguments Parameter names are not covered by the backward compatibility promise for PHPUnit
- *
  * @internal This class is not covered by the backward compatibility promise for PHPUnit
  */
 final class DefaultResultCache implements ResultCache
@@ -80,12 +76,17 @@ final class DefaultResultCache implements ResultCache
     private readonly string $cacheFilename;
 
     /**
-     * @var array<string, TestStatus>
+     * @psalm-var array<string, TestStatus>
      */
     private array $defects = [];
 
     /**
-     * @var array<string, float>
+     * @psalm-var array<string, TestStatus>
+     */
+    private array $currentDefects = [];
+
+    /**
+     * @psalm-var array<string, float>
      */
     private array $times = [];
 
@@ -100,11 +101,10 @@ final class DefaultResultCache implements ResultCache
 
     public function setStatus(string $id, TestStatus $status): void
     {
-        if ($status->isSuccess()) {
-            return;
+        if ($status->isFailure() || $status->isError()) {
+            $this->currentDefects[$id] = $status;
+            $this->defects[$id] = $status;
         }
-
-        $this->defects[$id] = $status;
     }
 
     public function status(string $id): TestStatus
@@ -114,6 +114,10 @@ final class DefaultResultCache implements ResultCache
 
     public function setTime(string $id, float $time): void
     {
+        if (! isset($this->currentDefects[$id])) {
+            unset($this->defects[$id]);
+        }
+
         $this->times[$id] = $time;
     }
 
@@ -122,24 +126,9 @@ final class DefaultResultCache implements ResultCache
         return $this->times[$id] ?? 0.0;
     }
 
-    public function mergeWith(self $other): void
-    {
-        foreach ($other->defects as $id => $defect) {
-            $this->defects[$id] = $defect;
-        }
-
-        foreach ($other->times as $id => $time) {
-            $this->times[$id] = $time;
-        }
-    }
-
     public function load(): void
     {
-        if (! is_file($this->cacheFilename)) {
-            return;
-        }
-
-        $contents = file_get_contents($this->cacheFilename);
+        $contents = @file_get_contents($this->cacheFilename);
 
         if ($contents === false) {
             return;
@@ -195,7 +184,7 @@ final class DefaultResultCache implements ResultCache
         file_put_contents(
             $this->cacheFilename,
             json_encode($data),
-            LOCK_EX,
+            LOCK_EX
         );
     }
 

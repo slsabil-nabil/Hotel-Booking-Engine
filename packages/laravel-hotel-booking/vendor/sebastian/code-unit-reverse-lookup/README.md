@@ -1,6 +1,6 @@
-[![No Maintenance Intended](https://unmaintained.tech/badge.svg)](https://unmaintained.tech/)
-[![Latest Stable Version](https://poser.pugx.org/sebastian/code-unit-reverse-lookup/v)](https://packagist.org/packages/sebastian/code-unit-reverse-lookup)
+[![Latest Stable Version](https://poser.pugx.org/sebastian/code-unit-reverse-lookup/v/stable.png)](https://packagist.org/packages/sebastian/code-unit-reverse-lookup)
 [![CI Status](https://github.com/sebastianbergmann/code-unit-reverse-lookup/workflows/CI/badge.svg)](https://github.com/sebastianbergmann/code-unit-reverse-lookup/actions)
+[![Type Coverage](https://shepherd.dev/github/sebastianbergmann/code-unit-reverse-lookup/coverage.svg)](https://shepherd.dev/github/sebastianbergmann/code-unit-reverse-lookup)
 [![codecov](https://codecov.io/gh/sebastianbergmann/code-unit-reverse-lookup/branch/main/graph/badge.svg)](https://codecov.io/gh/sebastianbergmann/code-unit-reverse-lookup)
 
 # sebastian/code-unit-reverse-lookup
@@ -20,5 +20,3 @@ If you only need this library during development, for instance to run your proje
 ```
 composer require --dev sebastian/code-unit-reverse-lookup
 ```
-
-Please note that this is now a [low maintenance project](https://github.com/sebastianbergmann/code-unit-reverse-lookup/blob/main/.github/CONTRIBUTING.md#low-maintenance-project).
