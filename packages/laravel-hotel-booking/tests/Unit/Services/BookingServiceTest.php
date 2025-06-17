@@ -3,10 +3,11 @@
 use Slsabil\LaravelHotelBooking\Services\BookingService;
 use Slsabil\LaravelHotelBooking\Models\Booking;
 use Slsabil\LaravelHotelBooking\Events\BookingStatusChanged;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
-use Slsabil\LaravelHotelBooking\Tests\TestCase;
 
-uses(TestCase::class);
+
+uses(Tests\TestCase::class, RefreshDatabase::class);
 
 it('successfully creates a booking with all required fields', function () {
     Event::fake();
