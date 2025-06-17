@@ -1,45 +1,111 @@
 <?php
 
-namespace Packages\laravelhotelbooking\tests\Unit\Services;
-
-use Slsabil\LaravelHotelBooking\Models\Room;
-use Slsabil\LaravelHotelBooking\Models\Booking;
-use PSlsabil\LaravelHotelBooking\Models\User;
 use Slsabil\LaravelHotelBooking\Services\BookingService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Slsabil\LaravelHotelBooking\Models\Booking;
+use Slsabil\LaravelHotelBooking\Events\BookingStatusChanged;
+use Illuminate\Support\Facades\Event;
+use Slsabil\LaravelHotelBooking\Tests\TestCase;
 
-class BookingServiceTest extends TestCase
-{
-    use RefreshDatabase;
+uses(TestCase::class);
 
-    protected BookingService $bookingService;
+it('successfully creates a booking with all required fields', function () {
+    Event::fake();
 
-    protected function setUp(): void
-    {
-        parent::setUp();
+    $user = \App\Models\User::factory()->create();
+    $room = \Slsabil\LaravelHotelBooking\Models\Room::factory()->create();
 
-        $this->bookingService = new BookingService();
+    $service = new BookingService();
+
+    $checkInDate = now()->addDay()->toDateString();
+    $checkOutDate = now()->addDays(3)->toDateString();
+
+    $bookingData = [
+        'room_id' => $room->id,
+        'user_id' => $user->id,
+        'check_in_date' => $checkInDate,
+        'check_out_date' => $checkOutDate,
+        'total_price' => 1500.00,
+        'status' => 'pending',
+        // إزالة حقل reference من البيانات المرسلة
+    ];
+
+    $booking = $service->createBooking($bookingData);
+
+    expect($booking)->toBeInstanceOf(Booking::class)
+        ->room_id->toBe($room->id)
+        ->user_id->toBe($user->id)
+        ->check_in_date->format('Y-m-d')->toBe($checkInDate)
+        ->check_out_date->format('Y-m-d')->toBe($checkOutDate)
+        ->total_price->toEqual(1500.00)
+        ->status->toBe('pending')
+        ->reference->toBeUuid() // التحقق من أن القيمة UUID صالحة
+        ->paid_at->toBeNull()
+        ->cancelled_at->toBeNull()
+        ->expires_at->toBeNull();
+
+    Event::assertDispatched(BookingStatusChanged::class);
+});
+
+it('fails when required fields are missing', function () {
+    $service = new BookingService();
+    
+    $testCases = [
+        'missing room_id' => [
+            'user_id' => 1,
+            'check_in_date' => now()->addDay()->toDateString(),
+            'check_out_date' => now()->addDays(3)->toDateString(),
+            'total_price' => 1500.00,
+        ],
+        'missing user_id' => [
+            'room_id' => 1,
+            'check_in_date' => now()->addDay()->toDateString(),
+            'check_out_date' => now()->addDays(3)->toDateString(),
+            'total_price' => 1500.00,
+        ],
+        'missing check_in_date' => [
+            'room_id' => 1,
+            'user_id' => 1,
+            'check_out_date' => now()->addDays(3)->toDateString(),
+            'total_price' => 1500.00,
+        ],
+        'missing check_out_date' => [
+            'room_id' => 1,
+            'user_id' => 1,
+            'check_in_date' => now()->addDay()->toDateString(),
+            'total_price' => 1500.00,
+        ],
+        'missing total_price' => [
+            'room_id' => 1,
+            'user_id' => 1,
+            'check_in_date' => now()->addDay()->toDateString(),
+            'check_out_date' => now()->addDays(3)->toDateString(),
+        ]
+    ];
+
+    foreach ($testCases as $data) {
+        expect(fn() => $service->createBooking($data))
+            ->toThrow(\Illuminate\Database\QueryException::class);
     }
+});
 
-    public function test_room_availability_on_dates()
-    {
-        // Arrange: أنشئ غرفة وحجز واحد يغطي فترة معينة
-        $room = Room::factory()->create();
-        Booking::factory()->create([
-            'room_id' => $room->id,
-            'check_in_date' => '2025-06-20',
-            'check_out_date' => '2025-06-25',
-            'status' => 'confirmed',
-        ]);
+it('sets default values correctly', function () {
+    $user = \App\Models\User::factory()->create();
+    $room = \Slsabil\LaravelHotelBooking\Models\Room::factory()->create();
 
-        // Act & Assert
-        $isAvailable = $this->bookingService->isRoomAvailable($room->id, '2025-06-15', '2025-06-19');
-        $this->assertTrue($isAvailable);
+    $service = new BookingService();
 
-        $isAvailable = $this->bookingService->isRoomAvailable($room->id, '2025-06-22', '2025-06-24');
-        $this->assertFalse($isAvailable);
-    }
+    $booking = $service->createBooking([
+        'room_id' => $room->id,
+        'user_id' => $user->id,
+        'check_in_date' => now()->addDay()->toDateString(),
+        'check_out_date' => now()->addDays(3)->toDateString(),
+        'total_price' => 1500.00,
+    ]);
 
-    // تابع باقي الاختبارات بناءً على السيناريوهات
-}
+    expect($booking)
+        ->status->toBe('pending')
+        ->reference->not->toBeEmpty()
+        ->paid_at->toBeNull()
+        ->cancelled_at->toBeNull()
+        ->expires_at->toBeNull();
+});

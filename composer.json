@@ -11,7 +11,10 @@
     "repositories": [
         {
             "type": "path",
-            "url": "packages/laravel-hotel-booking"
+            "url": "packages/laravel-hotel-booking",
+             "options": {
+            "symlink": true
+        }
         }
     ],
     "require": {
@@ -21,16 +24,16 @@
         "slsabil/laravel-hotel-booking": "@dev"
     },
     "require-dev": {
-    "fakerphp/faker": "^1.23",
-    "laravel/pail": "^1.2.2",
-    "laravel/pint": "^1.13",
-    "laravel/sail": "^1.41",
-    "mockery/mockery": "^1.6",
-    "pestphp/pest": "^3.0",
-    "phpunit/phpunit": "^11.5",
-    "nunomaduro/collision": "^8.6"
-},
-
+        "fakerphp/faker": "^1.23",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.41",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "orchestra/testbench": "^10.4",
+        "pestphp/pest": "^3.0",
+        "phpunit/phpunit": "^11.5"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "app/",
@@ -40,11 +43,13 @@
     },
     "autoload-dev": {
         "psr-4": {
+            "Slsabil\\LaravelHotelBooking\\Database\\Factories\\": "packages/laravel-hotel-booking/database/factories/",
             "Tests\\": "tests/",
-            "Slsabil\\LaravelHotelBooking\\Database\\Factories\\": "packages/laravel-hotel-booking/database/factories/"
+            "Slsabil\\LaravelHotelBooking\\Tests\\": "packages/laravel-hotel-booking/tests/"
         }
     },
     "scripts": {
+        "test:hotel": "php vendor/bin/pest packages/laravel-hotel-booking/tests",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

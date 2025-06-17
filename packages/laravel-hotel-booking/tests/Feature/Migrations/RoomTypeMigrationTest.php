@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Schema;
-use Tests\TestCase;
+use Slsabil\LaravelHotelBooking\Tests\TestCase;
 
 uses(TestCase::class);
 

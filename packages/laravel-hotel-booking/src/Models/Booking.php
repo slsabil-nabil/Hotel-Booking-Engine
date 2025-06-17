@@ -13,7 +13,7 @@ class Booking extends Model
 {
     use HasFactory;
 
-     protected static function newFactory()
+    protected static function newFactory()
     {
         return BookingFactory::new();
     }
@@ -63,9 +63,9 @@ class Booking extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public function user(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(config('auth.providers.users.model'));
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function isPending(): bool

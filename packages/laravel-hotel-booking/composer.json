@@ -5,8 +5,21 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Slsabil\\LaravelHotelBooking\\": "packages/laravel-hotel-booking/src/"
+            "Slsabil\\LaravelHotelBooking\\": "src"
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Slsabil\\LaravelHotelBooking\\Database\\Factories\\": "database/factories/",
+            "Slsabil\\LaravelHotelBooking\\Tests\\": "tests"
+        }
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.30",
+        "orchestra/testbench": "^8.0",
+        "pestphp/pest-plugin-laravel": "^2.4",
+        "fakerphp/faker": "^1.23",
+        "phpunit/phpunit": "^9.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -15,17 +28,6 @@
             "providers": [
                 "Slsabil\\LaravelHotelBooking\\HotelBookingServiceProvider"
             ]
-        }
-    },
-    "require-dev": {
-        "pestphp/pest": "^2.30",
-        "orchestra/testbench": "^8.0",
-        "pestphp/pest-plugin-laravel": "^2.4"
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Tests\\": "tests/",
-            "Slsabil\\LaravelHotelBooking\\Database\\Factories\\": "packages/laravel-hotel-booking/database/factories/"
         }
     },
     "config": {

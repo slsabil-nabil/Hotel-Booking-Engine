@@ -1,5 +1,6 @@
 <?php
 
+use Slsabil\LaravelHotelBooking\Tests\TestCase;
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,7 +12,9 @@
 |
 */
 
-pest()->extend(Tests\TestCase::class)->in('Feature');
+
+
+uses(TestCase::class)->in(__DIR__);
 
 /*
 |--------------------------------------------------------------------------

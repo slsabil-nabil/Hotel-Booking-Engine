@@ -60,7 +60,6 @@ class ComposerStaticInit2798bdc9ee6cc5ac9e7a6f09178c4ba9
         'T' => 
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
-            'Tests\\' => 6,
             'Termwind\\' => 9,
         ),
         'S' => 
@@ -92,6 +91,8 @@ class ComposerStaticInit2798bdc9ee6cc5ac9e7a6f09178c4ba9
             'Symfony\\Component\\ErrorHandler\\' => 31,
             'Symfony\\Component\\CssSelector\\' => 30,
             'Symfony\\Component\\Console\\' => 26,
+            'Slsabil\\LaravelHotelBooking\\Tests\\' => 34,
+            'Slsabil\\LaravelHotelBooking\\Database\\Factories\\' => 47,
             'Slsabil\\LaravelHotelBooking\\' => 28,
         ),
         'R' => 
@@ -214,10 +215,6 @@ class ComposerStaticInit2798bdc9ee6cc5ac9e7a6f09178c4ba9
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
         ),
-        'Tests\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/tests',
-        ),
         'Termwind\\' => 
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/termwind/src',
@@ -329,6 +326,14 @@ class ComposerStaticInit2798bdc9ee6cc5ac9e7a6f09178c4ba9
         'Symfony\\Component\\Console\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
+        ),
+        'Slsabil\\LaravelHotelBooking\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
+        ),
+        'Slsabil\\LaravelHotelBooking\\Database\\Factories\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/database/factories',
         ),
         'Slsabil\\LaravelHotelBooking\\' => 
         array (

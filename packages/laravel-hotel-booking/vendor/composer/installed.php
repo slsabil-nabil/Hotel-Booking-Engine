@@ -3,7 +3,7 @@
         'name' => 'slsabil/laravel-hotel-booking',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '41a3a6a5d9a23d66aae07339dd45f56cd763c341',
+        'reference' => 'cf317fa8d1ece87816a9e204b788dcc1ff3da18f',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -1010,7 +1010,7 @@
         'slsabil/laravel-hotel-booking' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '41a3a6a5d9a23d66aae07339dd45f56cd763c341',
+            'reference' => 'cf317fa8d1ece87816a9e204b788dcc1ff3da18f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

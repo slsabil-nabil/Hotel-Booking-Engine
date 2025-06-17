@@ -4,7 +4,7 @@ use Slsabil\LaravelHotelBooking\Models\Booking;
 use Slsabil\LaravelHotelBooking\Models\Room;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Slsabil\LaravelHotelBooking\Tests\TestCase;
 
 uses(TestCase::class);
 

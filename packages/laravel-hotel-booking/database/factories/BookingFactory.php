@@ -18,7 +18,7 @@ class BookingFactory extends Factory
 
         return [
             'room_id' => Room::factory(),
-            'user_id' => User::factory(),
+            'user_id' => \App\Models\User::factory(),
             'check_in_date' => $checkIn->format('Y-m-d'),
             'check_out_date' => $checkOut->format('Y-m-d'),
             'total_price' => $this->faker->randomFloat(2, 100, 500),

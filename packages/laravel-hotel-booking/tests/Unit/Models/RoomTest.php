@@ -5,7 +5,7 @@ use Slsabil\LaravelHotelBooking\Models\RoomType;
 use Slsabil\LaravelHotelBooking\Models\Room;
 use Slsabil\LaravelHotelBooking\Models\Booking;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Slsabil\LaravelHotelBooking\Tests\TestCase;
 
 uses(TestCase::class);
 uses(RefreshDatabase::class);
