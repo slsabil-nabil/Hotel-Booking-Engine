@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Event;
 use Slsabil\LaravelHotelBooking\Events\BookingStatusChanged;
 use Carbon\Carbon;
 
-uses(Tests\TestCase::class, RefreshDatabase::class);
+uses( RefreshDatabase::class);
 
 it('allows cancellation if more than 24 hours before check-in', function () {
     Event::fake();

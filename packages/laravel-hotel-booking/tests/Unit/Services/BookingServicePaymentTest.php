@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Slsabil\LaravelHotelBooking\Events\BookingStatusChanged;
 
-uses(Tests\TestCase::class, RefreshDatabase::class);
+uses( RefreshDatabase::class);
 
 it('processes payment successfully and updates booking status', function () {
     Event::fake();

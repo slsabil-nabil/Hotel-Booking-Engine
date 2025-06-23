@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Event;
 
 
-uses(Tests\TestCase::class, RefreshDatabase::class);
+uses( RefreshDatabase::class);
 
 it('successfully creates a booking with all required fields', function () {
     Event::fake();
@@ -49,7 +49,7 @@ it('successfully creates a booking with all required fields', function () {
 
 it('fails when required fields are missing', function () {
     $service = new BookingService();
-    
+
     $testCases = [
         'missing room_id' => [
             'user_id' => 1,

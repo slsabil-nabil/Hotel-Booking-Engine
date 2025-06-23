@@ -6,7 +6,6 @@ use Slsabil\LaravelHotelBooking\Models\Room;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Slsabil\LaravelHotelBooking\Tests\TestCase;
 
-uses(TestCase::class);
 uses(RefreshDatabase::class);
 
 it('has many room types', function () {

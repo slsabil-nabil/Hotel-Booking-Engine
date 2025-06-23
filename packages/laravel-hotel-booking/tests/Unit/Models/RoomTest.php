@@ -7,7 +7,6 @@ use Slsabil\LaravelHotelBooking\Models\Booking;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Slsabil\LaravelHotelBooking\Tests\TestCase;
 
-uses(TestCase::class);
 uses(RefreshDatabase::class);
 
 it('belongs to a room type', function () {

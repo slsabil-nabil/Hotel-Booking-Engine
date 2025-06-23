@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Slsabil\LaravelHotelBooking\Models\Room;
 use App\Models\User;
 
-uses(Tests\TestCase::class, RefreshDatabase::class);
+uses( RefreshDatabase::class);
 
 it('returns true when the room is available for the given period', function () {
     $room = Room::factory()->create();
